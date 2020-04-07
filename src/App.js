@@ -46,16 +46,11 @@ class App extends Component {
   }
 
   activeToggle = () => {
-    this.setState(prev => {
-      return {
-        detail: {...prev.detail, active: !prev.detail.active},
-        hosts: [...prev.hosts.filter(host => host != prev.detail)]
-      }
-    })
-    this.setState(prev => {
-      return {
-        hosts: {...prev.hosts, ...prev.detail}
-      }
+    let x = this.state.hosts.filter(host => host != this.state.detail)
+    let newDetail = {...this.state.detail, active: !this.state.detail.active}
+    this.setState({
+        detail: newDetail,
+        hosts: x.concat(newDetail)
     })
   }
 

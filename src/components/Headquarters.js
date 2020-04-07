@@ -7,6 +7,17 @@ import ColdStorage from './ColdStorage';
 
 
 class Headquarters extends Component {
+  state = {
+    logMessages: []
+  }
+
+  addLog = (event) => {
+    this.setState(prev => {
+      return {
+        logMessages: [event, ...prev.logMessages]
+      }
+    })
+  }
 
   render(){
     return(
@@ -21,7 +32,7 @@ class Headquarters extends Component {
         </Grid.Column>
         <Grid.Column width={3}>
 
-        <LogPanel onSetAll={this.props.onSetAll} detail={this.props.detail} hosts={this.props.hosts}/>
+        <LogPanel onSetAll={this.props.onSetAll} detail={this.props.detail} hosts={this.props.hosts} messages={this.state.logMessages} addLog={this.addLog}/>
 
         </Grid.Column>
       </Grid>

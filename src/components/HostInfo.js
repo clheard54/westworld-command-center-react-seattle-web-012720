@@ -7,10 +7,9 @@ class HostInfo extends Component {
   state = {
     options: this.props.areas.map(area => {
       return {key: area.id, text: area.name.split('_').map(word => word[0].toUpperCase()+word.substring(1)).join(' '), value: area.name}}),
-    value: this.props.host.area
   }
 
-
+  
   handleChange = (e, {value}) => {
     // the 'value' attribute is given via Semantic's Dropdown component.
     // Put a debugger in here and see what the "value" variable is when you pass in different options.
@@ -20,9 +19,10 @@ class HostInfo extends Component {
     this.props.activeToggle()
   }
 
+
   render(){
     const {firstName,lastName, active, imageUrl, gender, area, authorized} = this.props.host
-    
+
     return (
       <Grid>
         <Grid.Column width={6}>
@@ -52,8 +52,7 @@ class HostInfo extends Component {
               Current Area:
               <Dropdown
                 onChange={this.handleChange}
-                value={this.state.value}
-                options={this.state.options}
+                value={this.props.detail.area}                options={this.state.options}
                 selection
               />
             </Card.Content>

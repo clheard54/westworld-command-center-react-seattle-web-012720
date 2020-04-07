@@ -7,7 +7,6 @@ const Host = (props) => {
   const handleShowDetail = (event) => {
     props.showDetail(props.host)
     event.target.className = "selected"
-    console.log(event.target)
   }
 
   const clicked = props.detail ? "host selected" : "host"

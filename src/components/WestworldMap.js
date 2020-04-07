@@ -2,7 +2,6 @@ import React from 'react';
 import { Segment } from 'semantic-ui-react';
 import Area from './Area'
 
-let hosts = []
 export default class WestworldMap extends React.Component{
 
  renderHosts = (areaName, limit) => ( this.props.hosts.filter( host => host.area == areaName ) )
