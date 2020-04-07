@@ -1,18 +1,86 @@
 import React, { Component } from 'react';
 import './stylesheets/App.css'
 import { Segment } from 'semantic-ui-react';
-
+import WestworldMap from './components/WestworldMap';
+import Headquarters from './components/Headquarters'
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      hosts: [],
+      areas: [],
+      detail: []
+    }
+  }
 
-  // As you go through the components given you'll see a lot of functional components.
-  // But feel free to change them to whatever you want.
-  // It's up to you whether they should be stateful or not.
+  getHosts = () => {
+    fetch("http://localhost:3000/hosts")
+    .then(resp => resp.json())
+    .then(data => {
+      this.setState({
+        hosts: data
+      })
+    })
+  }
+
+  getAreas = () => {
+    fetch("http://localhost:3000/areas")
+    .then(resp => resp.json())
+    .then(data => {
+      this.setState({
+        areas: data
+      })
+    })
+  }
+
+  componentDidMount = () => {
+    this.getHosts();
+    this.getAreas();
+  }
+  
+  showDetail = (host) => {
+    this.setState({
+      detail: host
+    })
+  }
+
+  activeToggle = () => {
+    this.setState(prev => {
+      return {
+        detail: {...prev.detail, active: !prev.detail.active},
+        hosts: [...prev.hosts.filter(host => host != prev.detail)]
+      }
+    })
+    this.setState(prev => {
+      return {
+        hosts: {...prev.hosts, ...prev.detail}
+      }
+    })
+  }
+
+  setAll = (action) => {
+    let allActive = this.state.hosts.map(host => {
+      return {...host, active: true}
+    })
+    let deactivated = this.state.hosts.map(host => {
+      return {...host, active: false}
+    })
+    console.log(action)
+    this.setState(prev => {
+      return {
+        hosts: (action == "activate" ? allActive : deactivated),
+        detail: (action == "activate" ? {...prev.detail, active: true} : {...prev.detail, active: false})
+      }
+    })
+  }
 
   render(){
     return (
       <Segment id='app'>
-        {/* What components should go here? Check out Checkpoint 1 of the Readme if you're confused */}
+        <WestworldMap hosts={this.state.hosts} areas={this.state.areas} showDetail={this.showDetail}/>
+        <Headquarters activeToggle={this.activeToggle} detail={this.state.detail} hosts={this.state.hosts} areas={this.state.areas} onSetAll={this.setAll} showDetail={this.showDetail}/>
+        
       </Segment>
     )
   }
