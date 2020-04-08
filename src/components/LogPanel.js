@@ -8,9 +8,13 @@ const LogPanel = (props) => {
     console.log(event.target.innerText)
     if (event.target.innerText == "ACTIVATE ALL") {
       props.onSetAll("activate")
+      props.addLog(Log.warn("Activating all hosts!"))
     } else {
       props.onSetAll("de")
+      props.addLog(Log.notify("Decommissiong all hosts."))
+
     }
+
   }
 
   return(
@@ -31,4 +35,18 @@ const LogPanel = (props) => {
 
 export default LogPanel
 
+/*
+1) Setting a hosts area:
+Notify: {first name of host} set in area {formatted area name}
 
+
+
+4) Activating all hosts:
+Warn: Activating all hosts!
+
+5) Decommissioning all hosts:
+Notify: Decommissiong all hosts.
+
+6) Trying to add too many hosts to an area:
+Error: Too many hosts. Cannot add {first name of host} to {formatted area name}
+*/

@@ -28,7 +28,7 @@ class Headquarters extends Component {
 
         </Grid.Column>
         <Grid.Column width={5}>
-          <Details activeToggle={this.props.activeToggle} detail={this.props.detail} hosts={this.props.hosts} areas={this.props.areas}/>
+          <Details addLog={this.addLog} activeToggle={this.props.activeToggle} detail={this.props.detail} hosts={this.props.hosts} setArea={this.props.setArea} areas={this.props.areas}/>
         </Grid.Column>
         <Grid.Column width={3}>
 

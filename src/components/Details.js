@@ -10,7 +10,7 @@ const Details = (props) => {
   const renderSomething = () => {
     
     if (props.detail.length != 0) {
-      return <HostInfo activeToggle={props.activeToggle} detail={props.detail} areas={props.areas} host={props.detail}/>
+      return <HostInfo activeToggle={props.activeToggle} detail={props.detail} setArea={props.setArea} areas={props.areas} hosts={props.hosts} addLog={props.addLog}/>
     } else {
      return <Image size='medium' src={Images.westworldLogo}/>
     }

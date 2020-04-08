@@ -3,6 +3,7 @@ import './stylesheets/App.css'
 import { Segment } from 'semantic-ui-react';
 import WestworldMap from './components/WestworldMap';
 import Headquarters from './components/Headquarters'
+import {Log} from './services/Log'
 
 class App extends Component {
   constructor() {
@@ -54,6 +55,18 @@ class App extends Component {
     })
   }
 
+  setArea = (currentHost, areaName) => {
+    this.setState( prev => {
+      prev.hosts.forEach( host => {
+        if(host === currentHost){
+          host.area = areaName
+        }
+      })
+      return {hosts: prev.hosts}
+    })
+
+  }
+
   setAll = (action) => {
     let allActive = this.state.hosts.map(host => {
       return {...host, active: true}
@@ -74,7 +87,7 @@ class App extends Component {
     return (
       <Segment id='app'>
         <WestworldMap hosts={this.state.hosts} areas={this.state.areas} showDetail={this.showDetail}/>
-        <Headquarters activeToggle={this.activeToggle} detail={this.state.detail} hosts={this.state.hosts} areas={this.state.areas} onSetAll={this.setAll} showDetail={this.showDetail}/>
+        <Headquarters setArea={this.setArea} activeToggle={this.activeToggle} detail={this.state.detail} hosts={this.state.hosts} areas={this.state.areas} onSetAll={this.setAll} showDetail={this.showDetail}/>
         
       </Segment>
     )
